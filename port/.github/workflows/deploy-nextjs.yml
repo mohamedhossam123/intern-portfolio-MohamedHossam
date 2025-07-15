@@ -3,7 +3,7 @@ name: Deploy Next.js to GitHub Pages
 on:
   push:
     branches:
-      - main # Or your default branch
+      - main # Or your default branch (e.g., master)
   workflow_dispatch:
 
 jobs:
@@ -18,21 +18,20 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20' # Adjust if needed
-          cache: 'npm'       # <--- Ensure this is 'npm'
+          cache: 'npm'       # Or 'yarn' if you use yarn
 
       - name: Install dependencies
-        # Ensure this is 'npm install' if you use npm, NOT 'yarn install'
-        run: npm install --legacy-peer-deps
-        # If you still get errors here, try just `npm install` first, then add `--legacy-peer-deps` if needed.
-        # Some Next.js setups are fine without it.
+        run: npm install --legacy-peer-deps # Or 'yarn install'
+        working-directory: ./port # Correct placement for this step
 
       - name: Build Next.js app
-        run: npm run build
+        run: npm run build # Or 'yarn build'
+        working-directory: ./port # Correct placement for this step
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './out'
+          path: './port/out' # IMPORTANT: This path is correct for the 'out' folder inside 'port'
 
   deploy:
     environment:
