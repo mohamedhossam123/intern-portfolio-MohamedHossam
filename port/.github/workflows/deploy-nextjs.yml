@@ -4,46 +4,44 @@ on:
   push:
     branches:
       - main # Or your default branch (e.g., master)
-  workflow_dispatch:
+  workflow_dispatch: # Allows manual triggering of the workflow from the GitHub UI
 
 jobs:
   build-and-deploy:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest # Specifies the operating system for the job
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - name: Checkout repository # Step to get your code from the repository
+        uses: actions/checkout@v4 # Uses the official action to check out code
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - name: Setup Node.js and Install Dependencies # Combined step for setting up Node and installing packages
+        run: | # The '|' indicates a multi-line shell command
+          cd port # <--- Change directory to your Next.js project folder
+          npm install --legacy-peer-deps # <--- Run npm install from inside 'port'
+        # No 'working-directory' is needed for this step as we explicitly use 'cd'
+
+      - name: Build Next.js app # Step to build your Next.js application
+        run: | # Multi-line shell command
+          cd port # <--- Change directory to your Next.js project folder again
+          npm run build # <--- Run npm build from inside 'port'
+        # No 'working-directory' is needed for this step
+
+      - name: Upload Pages artifact # Step to upload the static files for deployment
+        uses: actions/upload-pages-artifact@v3 # Official action to upload artifacts for GitHub Pages
         with:
-          node-version: '20' # Adjust if needed
-          cache: 'npm'       # Or 'yarn' if you use yarn
-
-      - name: Install dependencies
-        run: npm install --legacy-peer-deps # Or 'yarn install'
-        working-directory: ./port # Correct placement for this step
-
-      - name: Build Next.js app
-        run: npm run build # Or 'yarn build'
-        working-directory: ./port # Correct placement for this step
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: './port/out' # IMPORTANT: This path is correct for the 'out' folder inside 'port'
+          path: './port/out' # <--- IMPORTANT: Path to your statically exported 'out' directory from the repo root
 
   deploy:
     environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    needs: build-and-deploy
+      name: github-pages # Associates this job with the GitHub Pages deployment environment
+      url: ${{ steps.deployment.outputs.page_url }} # The URL where the site will be deployed
+    runs-on: ubuntu-latest # Specifies the operating system for this deployment job
+    needs: build-and-deploy # This job depends on the 'build-and-deploy' job completing successfully
     permissions:
-      pages: write
-      id-token: write
+      pages: write      # Required permission to write to GitHub Pages
+      id-token: write   # Required for OpenID Connect (OIDC) authentication with actions/deploy-pages
 
     steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+      - name: Deploy to GitHub Pages # Step to deploy the uploaded artifact
+        id: deployment # Gives this step an ID to reference its outputs
+        uses: actions/deploy-pages@v4 # Official action to deploy to GitHub Pages
