@@ -16,13 +16,13 @@ jobs:
 
       - name: Setup Node.js and Install Dependencies # Combined step for setting up Node and installing packages
         run: | # The '|' indicates a multi-line shell command
-          cd port # <--- Change directory to your Next.js project folder
+
           npm install --legacy-peer-deps # <--- Run npm install from inside 'port'
         # No 'working-directory' is needed for this step as we explicitly use 'cd'
 
       - name: Build Next.js app # Step to build your Next.js application
         run: | # Multi-line shell command
-          cd port # <--- Change directory to your Next.js project folder again
+
           npm run build # <--- Run npm build from inside 'port'
         # No 'working-directory' is needed for this step
 
