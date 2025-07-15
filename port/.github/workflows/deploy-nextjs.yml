@@ -3,19 +3,12 @@ name: Deploy Next.js to GitHub Pages
 on:
   push:
     branches:
-      - main # Deploy when changes are pushed to the main branch
-  workflow_dispatch: # Allow manual triggering of the workflow
+      - main # Or your default branch
+  workflow_dispatch:
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-
-    env:
-      # IMPORTANT: Set this if you are deploying to a Project Site (e.g., username.github.io/your-repo-name)
-      # Replace 'your-repo-name' with the actual name of your GitHub repository.
-      # If deploying to a User/Organization Site (username.github.io), you can remove or leave this empty.
-      NEXT_PUBLIC_BASE_PATH: /${{ github.event.repository.name }}
-      # Example: If your repo name is 'my-blog', NEXT_PUBLIC_BASE_PATH will be '/my-blog'
 
     steps:
       - name: Checkout repository
@@ -24,28 +17,32 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20' # Or your desired Node.js version, align with your project
+          node-version: '20' # Adjust if needed
+          cache: 'npm'       # <--- Ensure this is 'npm'
 
       - name: Install dependencies
-        run: npm install --legacy-peer-deps # Or 'yarn install --legacy-peer-deps' if you use Yarn
+        # Ensure this is 'npm install' if you use npm, NOT 'yarn install'
+        run: npm install --legacy-peer-deps
+        # If you still get errors here, try just `npm install` first, then add `--legacy-peer-deps` if needed.
+        # Some Next.js setups are fine without it.
 
       - name: Build Next.js app
-        run: npm run build # This command will run 'next build' and then 'next export' due to 'output: export'
+        run: npm run build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './out' # Next.js static export generates files into the 'out' directory
+          path: './out'
 
   deploy:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
-    needs: build-and-deploy # This job depends on the 'build-and-deploy' job
+    needs: build-and-deploy
     permissions:
-      pages: write      # Required to deploy to GitHub Pages
-      id-token: write   # Required for OpenID Connect (OIDC) authentication with actions/deploy-pages
+      pages: write
+      id-token: write
 
     steps:
       - name: Deploy to GitHub Pages
