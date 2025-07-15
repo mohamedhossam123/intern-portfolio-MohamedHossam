@@ -14,11 +14,11 @@ jobs:
       - name: Checkout repository # Step to get your code from the repository
         uses: actions/checkout@v4 # Uses the official action to check out code
 
-      - name: Setup Node.js and Install Dependencies # Combined step for setting up Node and installing packages
-        run: | # The '|' indicates a multi-line shell command
 
-          npm install --legacy-peer-deps # <--- Run npm install from inside 'port'
-        # No 'working-directory' is needed for this step as we explicitly use 'cd'
+      - name: Install dependencies
+        run: |
+          npm install --legacy-peer-deps
+          npm install tailwindcss autoprefixer
 
       - name: Build Next.js app # Step to build your Next.js application
         run: | # Multi-line shell command
