@@ -200,7 +200,7 @@ const App: React.FC = () => {
             />
           </div>
           <h1 className="text-4xl md:text-6xl font-extrabold mb-4 drop-shadow-lg">
-            Hi, I'm <span className="text-amber-300">Mohamed Hossam</span>
+            Hi, I&apos;m <span className="text-amber-300">Mohamed Hossam</span>
           </h1>
           <p className="text-xl md:text-2xl font-light mb-8 max-w-2xl mx-auto animate-fade-in delay-200">
             A passionate{' '}
@@ -256,7 +256,7 @@ const App: React.FC = () => {
           </ScrollFloat>
 
           <p className="max-w-3xl mx-auto text-center text-lg text-gray-300 mt-4 mb-16 leading-relaxed">
-            For me, software engineering is more than just writing code—it's a craft centered on building valuable, high-quality experiences. My work is guided by a few core principles that ensure every project is both technically sound and genuinely useful.
+            For me, software engineering is more than just writing code—it&apos;s a craft centered on building valuable, high-quality experiences. My work is guided by a few core principles that ensure every project is both technically sound and genuinely useful.
           </p>
 
           {/* Core Philosophies Grid */}
@@ -455,9 +455,9 @@ const App: React.FC = () => {
             <span>Get In Touch</span>
           </ScrollFloat>
           <div className="max-w-2xl mx-auto bg-zinc-800 p-8 rounded-lg shadow-lg">
-            <p className="text-center text-gray-300 text-lg mb-8">
-              I'm always open to new opportunities and collaborations. Feel free to reach out!
-            (Its not working at the moment)</p>
+              <p className="text-center text-gray-300 text-lg mb-8">
+                I&apos;m always open to new opportunities and collaborations. Feel free to reach out!
+            (It&apos;s not working at the moment)</p>
             <form className="space-y-6">
               <div>
                 <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-1">Name</label>
