@@ -20,9 +20,9 @@ interface Project {
 
 const projects: Project[] = [
   {
-    id: 'memzy',
-    name: 'Memzy: Your Personalized Humor Hub',
-    description: 'A modern productivity and memory training app designed to help users sharpen their focus and boost cognitive skills.',
+    id: "memzy",
+    name: "Memzy: Your Personalized Humor Hub",
+    description: "A modern productivity and memory training app designed to help users sharpen their focus and boost cognitive skills.",
     technologies: ['React', 'Next.js', '.NET', 'SQL Server'],
     image: '/memzyiconcopyyy.jpg',
     githubUrl: 'https://github.com/mohamedhossam123/memzy',
@@ -538,11 +538,10 @@ const App: React.FC = () => {
         title={currentProject ? `Images for ${currentProject.name}` : 'Project Images'}
       >
         {currentProject && (
-          <RollingGallery
-            images={currentProject.galleryImages}
-            autoplay={true}
-            pauseOnHover={true}
-          />
+            <RollingGallery
+              images={currentProject.galleryImages}
+              autoplay={true}
+            />
         )}
       </ProjectModal>
     </div>

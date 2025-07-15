@@ -1,7 +1,7 @@
 // components/ProjectModal.tsx
 import React, { FC, ReactNode, useEffect, useState, memo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Minimize2, Square, ExternalLink, Sparkles } from 'lucide-react';
+import { X, Sparkles } from 'lucide-react';
 
 interface ProjectModalProps {
   isOpen: boolean;
@@ -11,7 +11,7 @@ interface ProjectModalProps {
 }
 
 const ProjectModal: FC<ProjectModalProps> = memo(({ isOpen, onClose, title, children }) => {
-  const [isMinimized, setIsMinimized] = useState(false);
+  // const [isMinimized, setIsMinimized] = useState(false); // Removed unused state
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   // Effect to manage body overflow when modal is open/closed
@@ -97,9 +97,9 @@ const ProjectModal: FC<ProjectModalProps> = memo(({ isOpen, onClose, title, chil
               rotateY: 15
             }}
             animate={{ 
-              y: isMinimized ? 400 : 0, 
+              y: 0, 
               opacity: 1, 
-              scale: isMinimized ? 0.3 : 1,
+              scale: 1,
               rotateY: 0
             }}
             exit={{ 
@@ -184,33 +184,31 @@ const ProjectModal: FC<ProjectModalProps> = memo(({ isOpen, onClose, title, chil
 
             {/* Content area */}
             <AnimatePresence>
-              {!isMinimized && (
-                <motion.div
-                  className="relative overflow-hidden"
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: "auto" }}
-                  exit={{ opacity: 0, height: 0 }}
-                  transition={{ duration: 0.2 }} 
-                >
-                  <div className="max-h-[70vh] overflow-y-auto scrollbar-thin scrollbar-thumb-cyan-500/50 scrollbar-track-transparent">
-                    <motion.div
-                      className="p-8"
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.1 }} 
-                    >
-                      {children}
-                    </motion.div>
-                  </div>
-                </motion.div>
-              )}
+              <motion.div
+                className="relative overflow-hidden"
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.2 }} 
+              >
+                <div className="max-h-[70vh] overflow-y-auto scrollbar-thin scrollbar-thumb-cyan-500/50 scrollbar-track-transparent">
+                  <motion.div
+                    className="p-8"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.1 }} 
+                  >
+                    {children}
+                  </motion.div>
+                </div>
+              </motion.div>
             </AnimatePresence>
 
             {/* Holographic footer */}
             <motion.div
               className="border-t border-white/10 bg-gradient-to-r from-gray-900/50 to-black/50 backdrop-blur-sm p-4"
               initial={{ opacity: 0 }}
-              animate={{ opacity: isMinimized ? 0 : 1 }}
+              animate={{ opacity: 1 }}
               transition={{ delay: 0.2 }} 
             >
               <div className="flex items-center justify-between">

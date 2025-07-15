@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useCallback, useMemo ,memo} from "react";
+import React, { useEffect, useState, useCallback, useMemo ,memo} from "react";
 import {
   motion,
   useMotionValue,
@@ -23,13 +23,13 @@ const DEFAULT_IMGS: string[] = [
 
 interface RollingGalleryProps {
   autoplay?: boolean;
-  pauseOnHover?: boolean;
+  // pauseOnHover?: boolean; // Removed unused prop
   images?: string[];
 }
 
 const RollingGallery: React.FC<RollingGalleryProps> = memo(({
   autoplay = false,
-  pauseOnHover = false,
+  // pauseOnHover = false, // Removed unused variable
   images = [],
 }) => {
   const galleryImages = images.length > 0 ? images : DEFAULT_IMGS;
