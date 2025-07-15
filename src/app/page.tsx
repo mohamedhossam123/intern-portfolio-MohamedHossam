@@ -1,5 +1,6 @@
 'use client';
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { Github, Linkedin, Mail, Code, Briefcase, User, Lightbulb, MapPin, ExternalLink, Menu, X } from 'lucide-react';
 import RotatingText from '../components/RotatingText';
 import ScrollFloat from '../components/ScrollFloat';
@@ -193,10 +194,13 @@ const App: React.FC = () => {
 
         <div className="container mx-auto px-4 text-center z-10 animate-fade-in">
           <div className="relative w-40 h-40 mx-auto mb-6 rounded-full overflow-hidden border-4 border-teal-400 shadow-xl transform hover:scale-105 transition-transform duration-300">
-            <img
+            <Image
               src="/Me.jpg"
               alt="Mohamed Hossam Profile Picture"
+              width={160}
+              height={160}
               className="w-full h-full object-cover"
+              priority
             />
           </div>
           <h1 className="text-4xl md:text-6xl font-extrabold mb-4 drop-shadow-lg">
@@ -381,9 +385,11 @@ const App: React.FC = () => {
                 className="bg-zinc-800 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-1 cursor-pointer"
                 onClick={() => openProjectModal(project)}
               >
-                <img
+                <Image
                   src={project.image}
                   alt={`${project.name} Project`}
+                  width={600}
+                  height={224}
                   className="w-full h-56 object-cover"
                 />
                 <div className="p-6">

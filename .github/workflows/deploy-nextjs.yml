@@ -29,7 +29,7 @@ jobs:
       - name: Upload Pages artifact # Step to upload the static files for deployment
         uses: actions/upload-pages-artifact@v3 # Official action to upload artifacts for GitHub Pages
         with:
-          path: './port/out' # <--- IMPORTANT: Path to your statically exported 'out' directory from the repo root
+          path: './out' # <--- IMPORTANT: Path to your statically exported 'out' directory from the repo root
 
   deploy:
     environment:
