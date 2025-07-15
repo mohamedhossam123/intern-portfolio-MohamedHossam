@@ -13,7 +13,6 @@ import {
   Transition,
   type VariantLabels,
   type Target,
-  // Removed 'type AnimationControls' from here
   type TargetAndTransition,
 } from "framer-motion";
 

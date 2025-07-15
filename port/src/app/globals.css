@@ -29,6 +29,9 @@
     background-position: 0% 50%;
   }
 }
+html {
+  scroll-behavior: smooth;
+}
 
 .animated-gradient {
   background-size: 200% 200%;
