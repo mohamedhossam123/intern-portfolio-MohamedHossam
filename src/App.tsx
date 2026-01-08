@@ -1,0 +1,19 @@
+import { Hero } from './components/Hero';
+import { About } from './components/About';
+import { Skills } from './components/Skills';
+import { Projects } from './components/Projects';
+import { Experience } from './components/Experience';
+import { Footer } from './components/Footer';
+
+export default function App() {
+  return (
+    <div className="bg-[#0a0e17] text-gray-100 min-h-screen">
+      <Hero />
+      <Experience />
+      <About />
+      <Skills />
+      <Projects />
+      <Footer />
+    </div>
+  );
+}
